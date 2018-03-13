@@ -1,18 +1,13 @@
+<?php
+/**
+ * @var $user User
+ */
+?>
 
-
-<!doctype html>
-<html lang="ru">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>SkillUP | Регистрация</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-</head>
-
-<body>
 <div class="container-fluid jumbotron col-md-offset-4 col-md-5">
-
+    <?php if ($user->getFullName()) {
+        echo '<h1>'.$user->getFullName().'</h1>';
+    } ?>
     <form action="" method="POST" enctype="multipart/form-data">
         <div class="form-group">
             <label for="firstname">Имя</label>
@@ -70,7 +65,6 @@
             <label><input type="checkbox" name="is_agree" value="1" checked required> Условия соглашения</label>
         </div>
         <button class="btn btn-primary">Зарегистрироваться</button>
+        <a href="<?= $this->route('home') ?>" class="btn btn-primary">Главная</a>
     </form>
 </div>
-</body>
-</html>
