@@ -1,42 +1,40 @@
 <?php
+namespace app\components;
 class Weather
 {
-    const API_URL = 'http://api.openweathermap.org/data/2.5/weather';
-    const CACHE_DIR = __DIR__.'/../../var/cache/weather/';
+    const API_URL = 'http://api.openweathermap.org/data/2.5/';
+    const CACHE_DIR = 'weather';
     private $apiKey;
-    public function __construct($apiKey)
+    public function __construct($apiKey = null)
     {
+        if (!$apiKey) {
+            throw new \Exception('Ключ API не передан');
+        }
         $this->apiKey = $apiKey;
     }
-    public function getWeatherByCity($city) {
+    public function getWeatherByCity($city, $cache = false) {
         $param = [
             'q' => $city,
             'appid' => $this->apiKey,
         ];
-        $url = self::API_URL . '?' . http_build_query($param);
+        $url = self::API_URL . 'weather?' . http_build_query($param);
+        return $this->getResponse($url, $cache);
+    }
+    public function getWeatherByCoordinate($lat, $lon) {
+        $param = [
+            'lat' => $lat,
+            'lon' => $lon,
+            'cnt' => 10,
+            'appid' => $this->apiKey,
+        ];
+        $url = self::API_URL . 'find?' . http_build_query($param);
         return $this->getResponse($url);
     }
-    public function getWeatherByCoordinate() {
-    }
-    private function getResponse($url) {
-        $cacheFile = self::CACHE_DIR.md5($url);
-        if (file_exists($cacheFile) && time()-filemtime($cacheFile) <= 5) {
-            $result = file_get_contents($cacheFile);
-        } else {
-            $result = @file_get_contents($url);
-            if ($result) {
-                $this->cacheWeather($result, $cacheFile);
-            }
+    private function getResponse($url, $cache = false) {
+        if ($cache) {
+            return $url;
         }
+        $result = File::getCache($url, self::CACHE_DIR);
         return json_decode($result, true);
-    }
-    private function cacheWeather($result, $cacheFile) {
-        if (!file_exists(self::CACHE_DIR)) {
-            mkdir(self::CACHE_DIR, 0777, true);
-            chmod(self::CACHE_DIR, 0777);
-        }
-        file_put_contents($cacheFile, $result);
-        chmod($cacheFile, 0777);
-        Session::addFlash(Session::FLASH_SUCCESS, 'Файл закэшеирован');
     }
 }
