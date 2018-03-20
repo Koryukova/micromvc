@@ -6,8 +6,8 @@ class MainController extends Controller
 {
     public function homeAction() {
         $user = new User();
-        $user->setFirstname('Роман');
-        $user->setLastname('Ястребов');
+        $user->setFirstname('Иван');
+        $user->setLastname('Иванов');
         $this->render('home.php', 'Главная', [
             'user' => $user,
             'time' => time(),

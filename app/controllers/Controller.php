@@ -1,6 +1,8 @@
 <?php
+
 namespace app\controllers;
 use app\components\Navbar;
+
 abstract class Controller
 {
     protected $action;

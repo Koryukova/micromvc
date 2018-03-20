@@ -1,11 +1,16 @@
 <?php
 /**
- * @var $weatherByCity array
+ * @var $weather1 array
+ * @var $weather2 array
  */
-dump($weatherByCity);
+dump($weather1);
+
 ?>
 
 <div class="container">
     <h1>Погода:</h1>
-    <p><?= $weatherByCity['name'] ?>: <?= $weatherByCity['weather'][0]['main'] ?></p>
+    <p>
+        <?= $weather1['name'] ?>:
+        <?= $weather1['main']['temp']-273.15 ?> C<sup>o</sup>
+    </p>
 </div>

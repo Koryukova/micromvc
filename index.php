@@ -7,6 +7,7 @@ use app\components\Session;
 use app\controllers\MainController;
 use app\components\Autoloader;
 
+
 define('PROJECT_NAME', 'SkillUP');
 define('ROOT_DIR', __DIR__);
 define('SEPARATOR', '\\');
