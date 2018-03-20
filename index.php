@@ -1,4 +1,5 @@
 <?php
+
 require_once 'app/components/Autoloader.php';
 require_once 'vendor/autoload.php';
 
