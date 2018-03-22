@@ -4,6 +4,8 @@
  */
 ?>
 
+<script src="templates/assets/js/posts.js?<?= filemtime('templates/assets/js/posts.js') ?>"></script>
+
 <style>
     body {
         background-color: #f4f4f4;

@@ -32,4 +32,7 @@ class DB
         $stmt->execute($param);
         return $stmt;
     }
+    public function paginate($sql, $page, $limit = 10) {
+        return $sql;
+    }
 }

@@ -1,10 +1,13 @@
 $(function () {
 
+    var page = 1;
+
     $(".post .like").on("click", function () {
         var count = $(this).find('.count');
         var icon = $(this).find('i.fa-heart');
+
         $.ajax({
-            url: '/micromvc/?act=like',
+            url: '/micromvc/',
             data: {
                 act: 'like',
                 post_id: 1
@@ -12,12 +15,10 @@ $(function () {
             type: 'GET',
             dataType: 'json',
             success: function (data) {
+                icon.removeClass('fas')
+                    .removeClass('far');
 
-
-                icon
-                    .removeClass('far')
-                    .removeClass('fas');
-
+                // fas - Закрашенный лайк
                 if (data.is_like) {
                     icon.addClass('fas');
                 } else {
@@ -26,11 +27,17 @@ $(function () {
                 count.text(data.like_count);
             },
             error: function (data) {
-                alert(data);
+                alert('Ошибка');
             }
         });
+    });
 
+    // Подгрузка постов (Paginate)
+    $(window).scroll(function () {
+        if ((($(window).scrollTop() + $(window).height()) + 250) >= $(document).height()) {
+            page++;
+            // ajax
+        }
     });
 
 });
-
